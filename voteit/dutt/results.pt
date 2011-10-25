@@ -1,0 +1,24 @@
+<tal:main xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="voteit.dutt">
+<h1 i18n:translate="">Poll result</h1>
+
+<span i18n:translate="">Total number of votes</span>: ${total_votes}
+
+<table class="listing" tal:condition="result">
+    <thead>
+        <tr>
+            <th i18n:translate="" class="heading">Proposal</th>
+            <th i18n:translate="" class="heading">Count</th>
+            <th i18n:translate="" class="heading">Percent</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tal:iterate repeat="item result">
+        <tr tal:attributes="class repeat.item.odd and 'odd' or 'even'">
+            <td tal:content="get_proposal_by_uid(item['uid']).title"></td>
+            <td tal:content="item['num']">3</td>
+            <td tal:content="item['percent']">3 %</td>
+        </tr>
+        </tal:iterate>
+    </tbody>
+</table>
+</tal:main>
