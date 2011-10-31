@@ -2,6 +2,7 @@ import colander
 import deform
 
 from voteit.dutt import DuttMF as _
+from voteit.dutt.widget import DuttWidget
 
 
 class Tuple(deform.Set):
@@ -35,7 +36,7 @@ def deferred_proposal_widget(node, kw):
     proposals = context.get_proposal_objects()
     for prop in proposals:
         choices.add((prop.uid, prop.title))
-    return deform.widget.CheckboxChoiceWidget(values=choices)
+    return DuttWidget(values=choices, max=context.poll_settings['max'])
 
 
 class DuttSchema(colander.Schema):
