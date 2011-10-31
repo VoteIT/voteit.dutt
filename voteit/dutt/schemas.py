@@ -45,10 +45,21 @@ class DuttSchema(colander.Schema):
                     title=deferred_proposal_title,)
 
 
-def poll_form_validator(form, value):
-    #FIXME: implement
-    pass
+class DuttFormValidator(object):
+    """ Check that a user hasn't selected more items than allowed. """
 
+    def __init__(self, context):
+        self.context = context
+        self.max = context.poll_settings['max']
+        assert isinstance(self.max, int)
+
+    def __call__(self, form, value):
+        if len(value['proposals']) > self.max:
+            exc = colander.Invalid(form, 'Too many selected')
+            exc['proposals'] = _(u"too_many_selected_error",
+                                 default = u"You can only select a maximum of ${max}.",
+                                 mapping = {'max': self.max})
+            raise exc
 
 
 class DuttSettingsSchema(colander.Schema):

@@ -1,5 +1,7 @@
 from unittest import TestCase
 
+import colander
+import deform
 from pyramid import testing
 from voteit.core.models.agenda_item import AgendaItem
 from voteit.core.models.poll import Poll
@@ -86,3 +88,36 @@ class DuttPollTests(TestCase):
         poll.close_poll()
         plugin = poll.get_poll_plugin()
         self.failUnless('p1' in plugin.render_result(request))
+
+
+class TestPollFormValidator(TestCase):
+    def setUp(self):
+        self.config = testing.setUp()
+
+    def tearDown(self):
+        testing.tearDown()
+
+    @property
+    def _cut(self):
+        from voteit.dutt.schemas import DuttFormValidator
+        return DuttFormValidator
+
+    def _mock_context(self, max = 5):
+        class _MockContext(testing.DummyResource):
+            poll_settings = {'max': max}
+        return _MockContext()
+
+    def test_validate_ok(self):
+        context = self._mock_context()
+        obj = self._cut(context)
+        value = {'proposals': range(2)}
+        self.assertEqual(obj(None, value), None)
+
+    def test_too_many_selected(self):
+        context = self._mock_context()
+        obj = self._cut(context)
+        from voteit.dutt.schemas import DuttSchema
+        schema = DuttSchema()
+        form = deform.Form(schema)
+        value = {'proposals': range(6)}
+        self.assertRaises(colander.Invalid, obj, form, value)

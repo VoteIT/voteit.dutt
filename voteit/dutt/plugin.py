@@ -7,7 +7,7 @@ from voteit.core.models.poll_plugin import PollPlugin
 from voteit.dutt import DuttMF as _
 from voteit.dutt.schemas import DuttSettingsSchema
 from voteit.dutt.schemas import DuttSchema
-from voteit.dutt.schemas import poll_form_validator
+from voteit.dutt.schemas import DuttFormValidator
 
 
 class DuttPoll(PollPlugin):
@@ -26,7 +26,8 @@ class DuttPoll(PollPlugin):
     def get_vote_schema(self):
         """ Get an instance of the schema that this poll uses.
         """
-        return DuttSchema(validator = poll_form_validator).bind(context = self.context)
+        validator = DuttFormValidator(self.context)
+        return DuttSchema(validator = validator).bind(context = self.context)
 
     def handle_close(self):
         """ Get the calculated result of this ballot.
