@@ -2,7 +2,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="voteit.dutt">
 <input type="hidden" name="__start__" value="${field.name}:sequence"/>
-  <div id="${field.oid}-label" i18n:translate="">Choices left to make: <span i18n:name="count">5</span></div>
+  <div class="label" i18n:translate="">Choices left to make: <span i18n:name="count">5</span></div>
   <ul class="deformSet duttWidget" id="${field.oid}">
     <tal:loop tal:repeat="choice field.widget.values">
       <tal:def tal:define="(value, title) choice">
@@ -19,14 +19,4 @@
     </tal:loop>
   </ul>
 <input type="hidden" name="__end__" value="${field.name}:sequence"/>
-<script type="text/javascript">
-    if(deform) {
-        deform.addCallback('${field.oid}', function(oid) {
-            $('#'+oid+' input:checkbox').live('click', function(event) {
-                var count = $('#'+oid+' input:checked').length;
-                $('#'+oid+'-label span').text(${field.widget.max} - count);
-            });
-        });
-    }
-</script>
 </tal:widget>

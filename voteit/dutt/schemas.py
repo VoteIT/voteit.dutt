@@ -26,7 +26,12 @@ def deferred_proposal_title(node, kw):
     context = kw['context']
     if context.get_workflow_state() == 'ongoing':
         return _(u"Mark the ones you like")
-    return _(u"You can't change your vote now.")    
+    return _(u"You can't change your vote now.")
+
+@colander.deferred
+def deferred_max_value(node, kw):
+    context = kw['context']
+    return context.poll_settings['max']
 
 @colander.deferred
 def deferred_proposal_widget(node, kw):
@@ -36,10 +41,14 @@ def deferred_proposal_widget(node, kw):
     proposals = context.get_proposal_objects()
     for prop in proposals:
         choices.add((prop.uid, prop.title))
-    return DuttWidget(values=choices, max=context.poll_settings['max'])
+    return DuttWidget(values=choices, css_class='dutt_proposals')
 
 
 class DuttSchema(colander.Schema):
+    max = colander.SchemaNode(colander.Int(),
+                              widget = deform.widget.HiddenWidget(css_class='dutt_max'),
+                              title = _(u"Maximum dutts"),
+                              default = deferred_max_value)
     proposals = colander.SchemaNode(
                     Tuple(allow_empty = True),
                     widget=deferred_proposal_widget,

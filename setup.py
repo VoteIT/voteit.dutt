@@ -29,6 +29,8 @@ setup(name='voteit.dutt',
       tests_require=requires,
       test_suite="voteit.dutt",
       entry_points = """\
+      [fanstatic.libraries]
+      voteit_dutt_lib = voteit.dutt.fanstaticlib:voteit_dutt_lib
       """,
       paster_plugins=['pyramid'],
       )
