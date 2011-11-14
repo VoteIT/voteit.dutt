@@ -2,7 +2,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="voteit.dutt">
 <input type="hidden" name="__start__" value="${field.name}:sequence"/>
-  <div class="label" i18n:translate="">Choices left to make: <span i18n:name="count">5</span></div>
+  <div class="label" i18n:translate="">You can pick <span class="dutt_count" i18n:name="count">5</span> more</div>
   <ul class="deformSet duttWidget" id="${field.oid}">
     <tal:loop tal:repeat="choice field.widget.values">
       <tal:def tal:define="(value, title) choice">

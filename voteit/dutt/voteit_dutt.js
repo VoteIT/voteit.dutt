@@ -3,7 +3,7 @@ if(deform) {
         parent = $(tag).parents('form');
         max = parent.find('input[name=max]').val()
         var count = parent.find('input:checked').length;
-        parent.find('div.label span').text(max - count);
+        parent.find('.dutt_count').text(max - count);
     }
     
     $('input:checkbox.dutt_proposals').live('click', function(event) {

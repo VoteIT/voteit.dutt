@@ -1,6 +1,6 @@
 from deform.widget import CheckboxChoiceWidget
 
-from voteit.dutt.fanstaticlib import voteit_dutt_js
+from voteit.dutt.fanstaticlib import voteit_dutt
 
 
 class DuttWidget(CheckboxChoiceWidget):
@@ -11,4 +11,4 @@ class DuttWidget(CheckboxChoiceWidget):
 
     def __init__(self, **kw):
         super(DuttWidget, self).__init__(**kw)
-        voteit_dutt_js.need()
+        voteit_dutt.need()
