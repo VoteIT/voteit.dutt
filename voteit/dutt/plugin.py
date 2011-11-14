@@ -54,7 +54,7 @@ class DuttPoll(PollPlugin):
         response['total_votes'] = self._total_votes()
         response['result'] = self.context.poll_result
         response['get_proposal_by_uid'] = self.context.get_proposal_by_uid
-        return render('results.pt', response, request = request)
+        return render('templates/results.pt', response, request = request)
 
     def _total_votes(self):
         return sum([x[1] for x in self.context.ballots])
