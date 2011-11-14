@@ -13,7 +13,8 @@ from voteit.dutt.schemas import DuttFormValidator
 class DuttPoll(PollPlugin):
     name = 'dutt_poll'
     title = _(u"Dutt poll")
-    description = _(u"Tick proposals you like. There's a max amount, but you can add less if you want.")
+    description = _(u"dutt_poll_description",
+                    default = u"Tick proposals you like. There's a max amount, but you can add less if you want.")
 
     def __init__(self, context):
         super(DuttPoll, self).__init__(context)

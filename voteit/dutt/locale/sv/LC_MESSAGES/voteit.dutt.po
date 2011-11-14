@@ -1,0 +1,72 @@
+# Swedish translations for voteit.dutt.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the voteit.dutt
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: voteit.dutt 0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2011-11-14 09:33+0100\n"
+"PO-Revision-Date: 2011-11-14 09:33+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: sv <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: voteit/dutt/dutt.pt:5
+msgid "You can pick ${count} more"
+msgstr "Du kan välja ${count} till"
+
+#: voteit/dutt/plugin.py:15
+msgid "Dutt poll"
+msgstr "Dutt-omröstning"
+
+#. Default: Tick proposals you like. There's a max amount, but you can add less
+#. if
+#. you want.
+#: voteit/dutt/plugin.py:16
+msgid "dutt_poll_description"
+msgstr "Markera yrkanden du gillar. Det finns ett maxantal, men du kan välja färre"
+
+#: voteit/dutt/results.pt:2
+msgid "Poll result"
+msgstr "Omröstningsresultat"
+
+#: voteit/dutt/results.pt:4
+msgid "Total number of votes"
+msgstr "Totalt antal röster"
+
+#: voteit/dutt/results.pt:9
+msgid "Proposal"
+msgstr "Yrkande"
+
+#: voteit/dutt/results.pt:10
+msgid "Count"
+msgstr "Antal"
+
+#: voteit/dutt/results.pt:11
+msgid "Percent"
+msgstr "Procent"
+
+#: voteit/dutt/schemas.py:28
+msgid "Mark the ones you like"
+msgstr "Markera de du gillar"
+
+#: voteit/dutt/schemas.py:29
+msgid "You can't change your vote now."
+msgstr "Du kan inte ändra din röst nu."
+
+#: voteit/dutt/schemas.py:50 voteit/dutt/schemas.py:77
+msgid "Maximum dutts"
+msgstr "Maximalt antal duttar"
+
+#. Default: You can only select a maximum of ${max}.
+#: voteit/dutt/schemas.py:69
+msgid "too_many_selected_error"
+msgstr "Du kan vara välja max ${max}."
+
