@@ -4,7 +4,7 @@
 <input type="hidden" name="__start__" value="${field.name}:sequence"/>
   <ul class="deformSet duttWidget" id="${field.oid}">
     <tal:loop tal:repeat="choice field.widget.values">
-      <tal:def tal:define="(value, title) choice">
+      <tal:def tal:define="value choice[0]; title choice[1];">
         <li class="deformSet-item">
           <input tal:attributes="checked value in cstruct;
                                  class field.widget.css_class"
