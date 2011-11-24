@@ -1,70 +1,69 @@
-# Translations template for voteit.dutt.
-# Copyright (C) 2011 ORGANIZATION
-# This file is distributed under the same license as the voteit.dutt project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-#
-#, fuzzy
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: voteit.dutt 0.1\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2011-11-14 09:33+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-11-24 08:54+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: voteit.dutt\n"
 
-#: voteit/dutt/dutt.pt:5
-msgid "You can pick ${count} more"
-msgstr ""
-
-#: voteit/dutt/plugin.py:15
-msgid "Dutt poll"
-msgstr ""
-
-#. Default: Tick proposals you like. There's a max amount, but you can add less if
-#. you want.
-#: voteit/dutt/plugin.py:16
-msgid "dutt_poll_description"
-msgstr ""
-
-#: voteit/dutt/results.pt:2
-msgid "Poll result"
-msgstr ""
-
-#: voteit/dutt/results.pt:4
-msgid "Total number of votes"
-msgstr ""
-
-#: voteit/dutt/results.pt:9
-msgid "Proposal"
-msgstr ""
-
-#: voteit/dutt/results.pt:10
+#: ./templates/results.pt:10
 msgid "Count"
 msgstr ""
 
-#: voteit/dutt/results.pt:11
-msgid "Percent"
+#: ./plugin.py:15
+msgid "Dutt poll"
 msgstr ""
 
-#: voteit/dutt/schemas.py:28
+#: ./schemas.py:28
 msgid "Mark the ones you like"
 msgstr ""
 
-#: voteit/dutt/schemas.py:29
-msgid "You can't change your vote now."
-msgstr ""
-
-#: voteit/dutt/schemas.py:50 voteit/dutt/schemas.py:77
+#: ./schemas.py:50
 msgid "Maximum dutts"
 msgstr ""
 
-#. Default: You can only select a maximum of ${max}.
-#: voteit/dutt/schemas.py:69
+#: ./templates/results.pt:11
+msgid "Percent"
+msgstr ""
+
+#: ./templates/results.pt:2
+msgid "Poll result"
+msgstr ""
+
+#: ./templates/results.pt:9
+msgid "Proposal"
+msgstr ""
+
+#: ./templates/results.pt:4
+msgid "Total number of votes"
+msgstr ""
+
+#: ./templates/dutt.pt:5
+msgid "You can pick ${count} more"
+msgstr ""
+
+#: ./schemas.py:29
+msgid "You can't change your vote now."
+msgstr ""
+
+#. Default: "Tick proposals you like. There's a max amount, but you can add less if you want."
+#: ./plugin.py:16
+msgid "dutt_poll_description"
+msgstr ""
+
+#. Default: "You can only select a maximum of ${max}."
+#: ./schemas.py:69
 msgid "too_many_selected_error"
 msgstr ""
 
