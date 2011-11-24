@@ -18,4 +18,4 @@ def includeme(config):
     append_search_path(CURRENT_PATH)
 
     #Include translations
-    #config.add_translation_dirs('voteit.dutt:locale/')
+    config.add_translation_dirs('voteit.dutt:locale/')
