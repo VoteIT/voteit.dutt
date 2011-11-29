@@ -1,8 +1,3 @@
 .dutt_count {
     font-weight: bold;
 }
-/*FIXME: se #polls .buttons main.css in voteit.core package*/
-#polls .dutt_poll .buttons {
-    text-align: left;
-}
-
