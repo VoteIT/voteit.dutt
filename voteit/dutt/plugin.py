@@ -49,11 +49,12 @@ class DuttPoll(PollPlugin):
             item['percent'] = _get_percentage(item['num'])
         self.context.poll_result = result
 
-    def render_result(self, request):
+    def render_result(self, request, complete=True):
         response = {}
         response['total_votes'] = self._total_votes()
         response['result'] = self.context.poll_result
         response['get_proposal_by_uid'] = self.context.get_proposal_by_uid
+        response['complete'] = complete
         return render('templates/results.pt', response, request = request)
 
     def _total_votes(self):
