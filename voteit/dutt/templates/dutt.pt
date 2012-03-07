@@ -20,3 +20,22 @@
   </ul>
 <input type="hidden" name="__end__" value="${field.name}:sequence"/>
 </tal:widget>
+<script language="javascript" type="text/javascript">
+    deform.addCallback('${field.oid}', function(oid) {
+        var field = $('#'+oid);
+        
+        function update_choices_lefts(field) {
+        	var form = field.parents('form');
+	        var max = form.find('input[name=max]').val();
+	        var count = field.find('input:checked').length;
+	        form.find('.dutt_count').text(max - count);
+	    }
+        
+        $('#'+oid+' input:checkbox.dutt_proposals').live('click', function(event) {
+        	field = $(this).parents('ul#'+oid);
+        	update_choices_lefts(field);
+    	});
+    	
+    	update_choices_lefts(field);
+    });
+</script>
