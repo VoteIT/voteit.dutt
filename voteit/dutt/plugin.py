@@ -24,7 +24,7 @@ class DuttPoll(PollPlugin):
     def get_settings_schema(self):
         return DuttSettingsSchema().bind(context = self.context)
     
-    def get_vote_schema(self):
+    def get_vote_schema(self, request=None, api=None):
         """ Get an instance of the schema that this poll uses.
         """
         validator = DuttFormValidator(self.context)
@@ -49,7 +49,7 @@ class DuttPoll(PollPlugin):
             item['percent'] = _get_percentage(item['num'])
         self.context.poll_result = result
 
-    def render_result(self, request, complete=True):
+    def render_result(self, request, api, complete=True):
         response = {}
         response['total_votes'] = self._total_votes()
         response['result'] = self.context.poll_result

@@ -87,7 +87,9 @@ class DuttPollTests(TestCase):
         self._add_votes(poll)
         poll.close_poll()
         plugin = poll.get_poll_plugin()
-        self.failUnless('p1' in plugin.render_result(request))
+        from voteit.core.views.api import APIView
+        api = APIView(poll, request)
+        self.failUnless('p1' in plugin.render_result(request, api))
 
 
 class TestPollFormValidator(TestCase):
