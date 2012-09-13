@@ -50,9 +50,14 @@ class DuttPoll(PollPlugin):
         self.context.poll_result = result
 
     def render_result(self, request, api, complete=True):
+        votes = [x['uid'] for x in self.context.poll_result]
+        novotes = self.context.proposal_uids - set(votes)
+        
         response = {}
+        response['api'] = api
         response['total_votes'] = self._total_votes()
         response['result'] = self.context.poll_result
+        response['novotes'] = novotes
         response['get_proposal_by_uid'] = self.context.get_proposal_by_uid
         response['complete'] = complete
         return render('templates/results.pt', response, request = request)
@@ -72,6 +77,6 @@ class Counter(dict):
         results = []
         for (uid, num) in self.items():
             results.append({'uid': uid, 'num': num})
-        results = sorted(results, key=lambda x: x['num'])
+        results = sorted(results, key=lambda x: x['num'], reverse=True)
         return tuple(results)
 
