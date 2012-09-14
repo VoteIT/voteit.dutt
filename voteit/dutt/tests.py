@@ -77,7 +77,7 @@ class DuttPollTests(TestCase):
         poll = ai['poll']
         self._add_votes(poll)
         poll.close_poll()
-        expected = ({'num': 1, 'percent': u'33.3%', 'uid': 'p2uid'}, {'num': 3, 'percent': u'100.0%', 'uid': 'p1uid'})
+        expected = ({'num': 3, 'percent': u'100.0%', 'uid': 'p1uid'}, {'num': 1, 'percent': u'33.3%', 'uid': 'p2uid'})
         self.assertEqual(poll.poll_result, expected)
 
     def test_render_result(self):
