@@ -22,13 +22,13 @@ class DuttPoll(PollPlugin):
             context.poll_settings = {'max': 5} #As default
 
     def get_settings_schema(self):
-        return DuttSettingsSchema().bind(context = self.context)
+        return DuttSettingsSchema()
     
     def get_vote_schema(self, request=None, api=None):
         """ Get an instance of the schema that this poll uses.
         """
         validator = DuttFormValidator(self.context)
-        return DuttSchema(validator = validator).bind(context = self.context)
+        return DuttSchema(validator = validator)
 
     def handle_close(self):
         """ Get the calculated result of this ballot.
@@ -52,7 +52,6 @@ class DuttPoll(PollPlugin):
     def render_result(self, request, api, complete=True):
         votes = [x['uid'] for x in self.context.poll_result]
         novotes = set(self.context.proposal_uids) - set(votes)
-        
         response = {}
         response['api'] = api
         response['total_votes'] = self._total_votes()
@@ -79,4 +78,7 @@ class Counter(dict):
             results.append({'uid': uid, 'num': num})
         results = sorted(results, key=lambda x: x['num'], reverse=True)
         return tuple(results)
+
+def includeme(config):
+    config.registry.registerAdapter(DuttPoll, name = DuttPoll.name)
 
