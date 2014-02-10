@@ -2,7 +2,21 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="voteit.dutt">
 <input type="hidden" name="__start__" value="${field.name}:sequence"/>
-  <div class="label" i18n:translate="">You can pick <span class="dutt_count" i18n:name="count">5</span> more</div>
+  <div class="label">
+
+      <tal:ts tal:condition="field.widget.max" i18n:translate="">
+          Maximum: <tal:count i18n:name="count">${field.widget.max}</tal:count>
+      </tal:ts>
+      <tal:ts tal:condition="field.widget.min" i18n:translate="">
+          Minimum:<tal:count i18n:name="count">${field.widget.min}</tal:count>
+      </tal:ts>
+      <tal:ts tal:condition="field.widget.max" i18n:translate="">
+          You can pick <span class="dutt_count" i18n:name="count">5</span> more.
+      </tal:ts>
+      <tal:ts tal:condition="not field.widget.max" i18n:translate="">
+          Picked: <span class="dutt_count" i18n:name="count">5</span>
+      </tal:ts>
+  </div>
   <ul class="deformSet duttWidget" id="${field.oid}">
     <tal:loop tal:repeat="choice field.widget.values">
       <tal:def tal:define="value choice[0]; title choice[1];">
@@ -23,19 +37,19 @@
 <script language="javascript" type="text/javascript">
     deform.addCallback('${field.oid}', function(oid) {
         var field = $('#'+oid);
-        
+        var max = ${field.widget.max};
+        var form = field.parents('form');
         function update_choices_lefts(field) {
-        	var form = field.parents('form');
-	        var max = form.find('input[name=max]').val();
 	        var count = field.find('input:checked').length;
-	        form.find('.dutt_count').text(max - count);
+	        if (max > 0) {
+	           count = max - count;
+	        }
+	        form.find('.dutt_count').text(count);
 	    }
-        
         $('#'+oid+' input:checkbox.dutt_proposals').live('click', function(event) {
         	field = $(this).parents('ul#'+oid);
         	update_choices_lefts(field);
     	});
-    	
     	update_choices_lefts(field);
     });
 </script>

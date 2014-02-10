@@ -87,7 +87,7 @@ class DuttPollTests(TestCase):
         self.failUnless('p1' in plugin.render_result(request, api))
 
 
-class TestPollFormValidator(TestCase):
+class TestDuttValidator(TestCase):
     def setUp(self):
         self.config = testing.setUp()
 
@@ -96,29 +96,35 @@ class TestPollFormValidator(TestCase):
 
     @property
     def _cut(self):
-        from voteit.dutt.schemas import DuttFormValidator
-        return DuttFormValidator
+        from voteit.dutt.schemas import DuttValidator
+        return DuttValidator
 
-    def _mock_context(self, max = 5):
+    def _mock_context(self, max = 0, min = 0):
         class _MockContext(testing.DummyResource):
-            poll_settings = {'max': max}
+            poll_settings = {'max': max, 'min': min}
         return _MockContext()
 
     def test_validate_ok(self):
-        context = self._mock_context()
+        context = self._mock_context(max = 5)
         obj = self._cut(context)
-        value = {'proposals': range(2)}
-        self.assertEqual(obj(None, value), None)
+        self.assertEqual(obj(None, range(2)), None)
 
     def test_too_many_selected(self):
-        context = self._mock_context()
+        context = self._mock_context(max = 5)
         obj = self._cut(context)
-        from voteit.dutt.schemas import DuttSchema
-        schema = DuttSchema()
-        form = deform.Form(schema)
-        value = {'proposals': range(6)}
-        self.assertRaises(colander.Invalid, obj, form, value)
+        self.assertRaises(colander.Invalid, obj, None, range(6))
 
+    def test_too_few_selected(self):
+        context = self._mock_context(min = 5)
+        obj = self._cut(context)
+        self.assertRaises(colander.Invalid, obj, range(1), [1])
+ 
+    def test_disabled_max_min(self):
+        context = self._mock_context(max = 0, min = 0)
+        obj = self._cut(context)
+        for i in range(9):
+            self.assertFalse(obj(None, range(i)))
+         
 
 class IntegrationTests(TestCase):
     def setUp(self):
