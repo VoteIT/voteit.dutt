@@ -57,6 +57,8 @@ class DuttPoll(PollPlugin):
         response['novotes'] = novotes
         response['get_proposal_by_uid'] = self.context.get_proposal_by_uid
         response['complete'] = complete
+        response['vote_singular'] = api.translate(_(u"vote_singular", default = u"Vote"))
+        response['vote_plural'] = api.translate(_(u"vote_plural", default = u"Votes"))
         return render('templates/results.pt', response, request = request)
 
     def _total_votes(self):

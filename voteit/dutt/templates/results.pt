@@ -5,7 +5,7 @@
 	    	<div>
 	    		<strong>
 	    			<span tal:replace="item['percent']">30%</span>
-					(<span tal:replace="item['num']">3</span> vote)
+					(<span tal:replace="item['num']">3</span> ${api.pluralize(vote_singular, vote_plural, item['num'])})
 				</strong>
 			</div>
 			<tal:proposal
@@ -18,7 +18,7 @@
 	    	<div>
 	    		<strong>
 	    			<span>0%</span>
-					(<span>0</span> votes)
+					(<span>0</span> ${api.pluralize(vote_singular, vote_plural, 0)})
 				</strong>
 			</div>
 			<tal:proposal
