@@ -1,5 +1,7 @@
 <tal:widget
+    xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
     i18n:domain="voteit.dutt">
 <input type="hidden" name="__start__" value="${field.name}:sequence"/>
   <div class="label">
@@ -8,7 +10,7 @@
           Maximum: <tal:count i18n:name="count">${field.widget.max}</tal:count>
       </tal:ts>
       <tal:ts tal:condition="field.widget.min" i18n:translate="">
-          Minimum:<tal:count i18n:name="count">${field.widget.min}</tal:count>
+          Minimum: <tal:count i18n:name="count">${field.widget.min}</tal:count>
       </tal:ts>
       <tal:ts tal:condition="field.widget.max" i18n:translate="">
           You can pick <span class="dutt_count" i18n:name="count">5</span> more.
@@ -33,7 +35,6 @@
     </tal:loop>
   </ul>
 <input type="hidden" name="__end__" value="${field.name}:sequence"/>
-</tal:widget>
 <script language="javascript" type="text/javascript">
     deform.addCallback('${field.oid}', function(oid) {
         var field = $('#'+oid);
@@ -53,3 +54,4 @@
     	update_choices_lefts(field);
     });
 </script>
+</tal:widget>
