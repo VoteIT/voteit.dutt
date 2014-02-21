@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: voteit.dutt 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-11 11:12+0100\n"
+"POT-Creation-Date: 2014-02-21 11:49+0100\n"
 "PO-Revision-Date: 2014-02-11 11:14+0100\n"
 "Last-Translator: Robin Harms Oredsson <robin@betahaus.net>\n"
 "Language-Team: sv <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"X-Generator: Poedit 1.5.7\n"
 
 #: voteit/dutt/models.py:14
 msgid "Dutt poll"
@@ -28,8 +27,7 @@ msgstr "Dutt-omröstning"
 #. you want.
 #: voteit/dutt/models.py:15
 msgid "dutt_poll_description"
-msgstr ""
-"Markera yrkanden du gillar. Det finns ett maxantal, men du kan välja färre"
+msgstr "Markera yrkanden du gillar. Det finns ett maxantal, men du kan välja färre"
 
 #. Default: Vote
 #: voteit/dutt/models.py:60
@@ -96,7 +94,6 @@ msgid "Maximum: ${count}"
 msgstr "Maximalt: ${count}"
 
 #: voteit/dutt/templates/deform/dutt.pt:12
-#| msgid "Maximum: ${count}"
 msgid "Minimum: ${count}"
 msgstr "Minimum: ${count}"
 
@@ -107,3 +104,4 @@ msgstr "Du kan välja ${count} till."
 #: voteit/dutt/templates/deform/dutt.pt:18
 msgid "Picked: ${count}"
 msgstr "Valt: ${count}"
+
