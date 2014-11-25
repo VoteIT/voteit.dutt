@@ -76,6 +76,7 @@ class DuttPollTests(TestCase):
         self.assertEqual(poll.poll_result, expected)
 
     def test_render_result(self):
+        self.config.include('pyramid_chameleon')
         request = testing.DummyRequest()
         ai = self._fixture()
         poll = ai['poll']
