@@ -18,10 +18,10 @@ def deferred_proposal_description(node, kw):
     min_choices = context.poll_settings.get('min', 0)
     if min_choices:
         return _("proposal_description_min",
-                 default = "Check at least ${min} and at most ${max} items.",
+                 default = "Check at least ${min} and at most ${max} proposal(s).",
                  mapping = {'min': min_choices, 'max': max_choices})
     return _("proposal_description_without_min",
-             default = "Check at most ${max} items.",
+             default = "Check at most ${max} proposal(s).",
              mapping = {'max': max_choices})
 
 @colander.deferred
