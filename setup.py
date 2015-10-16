@@ -29,14 +29,4 @@ setup(name='voteit.dutt',
       tests_require=requires,
       test_suite="voteit.dutt",
       entry_points = """\
-      [fanstatic.libraries]
-      voteit_dutt_lib = voteit.dutt.fanstaticlib:voteit_dutt_lib
-      """,
-      paster_plugins=['pyramid'],
-      message_extractors = { '.': [
-              ('**.py',   'lingua_python', None ),
-              ('**.pt',   'lingua_xml', None ),
-              ('**.zcml',   'lingua_zcml', None ),
-              ]},
-      )
-
+      """,)
