@@ -1,58 +1,50 @@
-<tal:main xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="voteit.dutt">
-<tal:summary condition="not complete">
-	<div tal:condition="result">
-	    <tal:iterate repeat="item result">
-	    	<div>
-	    		<strong>
-	    			<span tal:replace="item['percent']">30%</span>
-					(<span tal:replace="item['num']">3</span> ${api.pluralize(vote_singular, vote_plural, item['num'])})
-				</strong>
-			</div>
-			<tal:proposal
-				define="brain api.get_metadata_for_query(uid=item['uid'])[0]" 
-				replace="structure api.render_single_view_component(api.context, api.request, 'proposal', 'block', brain=brain)">
-		    	Proposal
-		    </tal:proposal>
-	    </tal:iterate>
-	    <tal:iterate repeat="looser novotes">
-	    	<div>
-	    		<strong>
-	    			<span>0%</span>
-					(<span>0</span> ${api.pluralize(vote_singular, vote_plural, 0)})
-				</strong>
-			</div>
-			<tal:proposal
-				define="brain api.get_metadata_for_query(uid=looser)[0]" 
-				replace="structure api.render_single_view_component(api.context, api.request, 'proposal', 'block', brain=brain)">
-		    	Proposal
-		    </tal:proposal>
-	    </tal:iterate>
-	</div>
-</tal:summary>
-
-<tal:complete condition="complete">
-	
-	<h3 i18n:translate="">Poll result</h3>
-	
-	<span i18n:translate="">Total number of votes</span>: ${total_votes}
-	
-	<table class="listing" tal:condition="result">
-	    <thead>
-	        <tr>
-	            <th i18n:translate="" class="heading">Proposal</th>
-	            <th i18n:translate="" class="heading">Count</th>
-	            <th i18n:translate="" class="heading">Percent</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        <tal:iterate repeat="item result">
-	        <tr tal:attributes="class repeat.item.odd and 'odd' or 'even'">
-	            <td tal:content="get_proposal_by_uid(item['uid']).title"></td>
-	            <td tal:content="item['num']">3</td>
-	            <td tal:content="item['percent']">3 %</td>
-	        </tr>
-	        </tal:iterate>
-	    </tbody>
-	</table>
-</tal:complete>
+<tal:main xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="voteit.core">
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title"
+    i18n:translate="">
+    Results of
+    <tal:ts replace="context.title" i18n:name="title" />
+  </h4>
+</div>
+<div class="modal-body">
+  <div class="list-group" tal:condition="results">
+  <tal:iterate repeat="item results">
+    <div class="list-group-item" tal:define="prop proposals[item['uid']]">
+      <tal:creator replace="structure request.creators_info(prop.creators, portrait = False)" />
+      ${prop.title}
+      <div class="row">
+        <div class="col-sm-4"><strong>#${prop.aid}</strong></div>
+        <div class="col-sm-4">
+          <strong><tal:percentage replace="item['perc']">30%</tal:percentage></strong>
+        </div>
+        <div class="col-sm-4">
+          <span tal:replace="item['num']">3</span> ${vote_text(item['num'])}
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar ${item['perc_int'] > 50 and 'progress-bar-success' or 'progress-bar-warning'}"
+          role="progressbar"
+          aria-valuenow="${item['perc_int']}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: ${item['perc']};">
+        </div>
+      </div>
+    </div>
+  </tal:iterate>
+  </div>
+</div>
+<div class="modal-body">
+  <div tal:condition="len(results) > 2" class="alert alert-warning" role="alert">
+    <span class="glyphicon glyphicon-warning-sign"></span>
+    <strong i18n:translate="">Note!</strong>
+    <span i18n:translate="majority_poll_too_many_proposals_warning">Majority polls aren't ment to handle more than 2 proposals.
+      If the winner didn't receive at least 51%
+      of the votes, you should consider using another poll method (like Schulze).
+      Consult the manual for more information.
+    </span>
+  </div>
+  <p i18n:translate="majority_results_description">The percentage shows number of votes that favoured that alternative, not out of the total number of voters.</p>
+</div>
 </tal:main>

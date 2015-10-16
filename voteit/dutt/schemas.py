@@ -1,24 +1,7 @@
 import colander
 import deform
 
-from voteit.dutt import DuttMF as _
-from voteit.dutt.widget import DuttWidget
-
-
-class Tuple(deform.Set):
-    """ A type representing a tuple. This inherits from the Set type,
-        and simply deserializes as a tuple instead.
-        Note that this means that order won't be preserved!
-
-    This type constructor accepts one argument:
-
-    ``allow_empty``
-       Boolean representing whether an empty set input to
-       deserialize will be considered valid.  Default: ``False``.
-    """
-    def deserialize(self, node, value):
-        super(Tuple, self).deserialize(node, value)
-        return tuple(value)
+from voteit.dutt import _
 
 
 @colander.deferred
@@ -28,6 +11,18 @@ def deferred_proposal_title(node, kw):
         return _(u"Mark the ones you like")
     return _(u"You can't change your vote now.")
 
+@colander.deferred
+def deferred_proposal_description(node, kw):
+    context = kw['context']
+    max_choices = context.poll_settings.get('max', len(context.proposals))
+    min_choices = context.poll_settings.get('min', 0)
+    if min_choices:
+        return _("proposal_description_min",
+                 default = "Check at least ${min} and at most ${max} items.",
+                 mapping = {'min': min_choices, 'max': max_choices})
+    return _("proposal_description_without_min",
+             default = "Check at most ${max} items.",
+             mapping = {'max': max_choices})
 
 @colander.deferred
 def deferred_proposal_widget(node, kw):
@@ -42,8 +37,10 @@ def deferred_proposal_widget(node, kw):
         #Disable info text if max is more or the same as the maximum available
         max_choices = 0
     min_choices = context.poll_settings.get('min', 0)
-    return DuttWidget(values = choices, css_class = 'dutt_proposals', max = max_choices, min = min_choices)
-
+    return deform.widget.CheckboxChoiceWidget(values = choices,
+                                              css_class = 'dutt_proposals',
+                                              max = max_choices,
+                                              min = min_choices,)
 
 @colander.deferred
 def deferred_dutts_validator(node, kw):
@@ -52,10 +49,13 @@ def deferred_dutts_validator(node, kw):
 
 
 class DuttSchema(colander.Schema):
+    widget = deform.widget.FormWidget(template = 'form_modal',
+                                      readonly_template = 'readonly/form_modal')
     proposals = colander.SchemaNode(
-                    Tuple(allow_empty = True),
+                    colander.Set(),
                     widget = deferred_proposal_widget,
                     title = deferred_proposal_title,
+                    description = deferred_proposal_description,
                     validator = deferred_dutts_validator)
 
 
@@ -93,5 +93,3 @@ class DuttSettingsSchema(colander.Schema):
                               description = _(u"A '0' disables this setting."),
                               default = 0,
                               missing = 0)
-#     mark_as_approved = colander.SchemaNode(colander.Bool(),
-#                                            title = _(u"Mark proposals as approved if they receive over 50% of the votes."))

@@ -4,7 +4,7 @@ from operator import itemgetter
 from pyramid.renderers import render
 from voteit.core.models.poll_plugin import PollPlugin
 
-from voteit.dutt import DuttMF as _
+from voteit.dutt import _
 from voteit.dutt.schemas import DuttSettingsSchema
 from voteit.dutt.schemas import DuttSchema
 
@@ -15,15 +15,10 @@ class DuttPoll(PollPlugin):
     description = _(u"dutt_poll_description",
                     default = u"Tick proposals you like. There's a max amount, but you can add less if you want.")
 
-    def __init__(self, context):
-        super(DuttPoll, self).__init__(context)
-        if not context.poll_settings:
-            context.poll_settings = {'max': 5} #As default
-
     def get_settings_schema(self):
         return DuttSettingsSchema()
     
-    def get_vote_schema(self, request=None, api=None):
+    def get_vote_schema(self):
         """ Get an instance of the schema that this poll uses.
         """
         return DuttSchema()
@@ -47,19 +42,41 @@ class DuttPoll(PollPlugin):
             item['percent'] = _get_percentage(item['num'])
         self.context.poll_result = result
 
-    def render_result(self, request, api, complete=True):
+    def render_result(self, view):
         votes = [x['uid'] for x in self.context.poll_result]
         novotes = set(self.context.proposal_uids) - set(votes)
+        translate = view.request.localizer.translate
+        total_votes = self._total_votes()
+        results = []
+        #Adjust result layout
+        def _get_percentage(num):
+            val = Decimal(num) / total_votes
+            return round(val*100, 0)
+
+        for res in tuple(self.context.poll_result):
+            results.append({'uid': res['uid'],
+                            'num': res['num'],
+                            'perc': res['percent'],
+                            'perc_int': _get_percentage(res['num'])})
+        for uid in novotes:
+            results.append({'uid': uid, 'num': 0, 'perc': '0%', 'perc_int': 0})
+        
+        vote_singular = translate(_("vote_singular", default = "Vote"))
+        vote_plural = translate(_("vote_plural", default = "Votes"))
+        def _vote_text(count):
+            return view.request.localizer.pluralize(vote_singular, vote_plural, count)
+
         response = {}
-        response['api'] = api
-        response['total_votes'] = self._total_votes()
-        response['result'] = self.context.poll_result
-        response['novotes'] = novotes
-        response['get_proposal_by_uid'] = self.context.get_proposal_by_uid
-        response['complete'] = complete
-        response['vote_singular'] = api.translate(_(u"vote_singular", default = u"Vote"))
-        response['vote_plural'] = api.translate(_(u"vote_plural", default = u"Votes"))
-        return render('templates/results.pt', response, request = request)
+        response['view'] = view
+        response['context'] = self.context
+        response['total_votes'] = total_votes
+        response['results'] = results
+        response['vote_text'] = _vote_text
+        proposals = {}
+        for prop in self.context.get_proposal_objects():
+            proposals[prop.uid] = prop
+        response['proposals'] = proposals
+        return render('voteit.dutt:templates/results.pt', response, request = view.request)
 
     def _total_votes(self):
         return sum([x[1] for x in self.context.ballots])
@@ -81,4 +98,3 @@ class Counter(dict):
 
 def includeme(config):
     config.registry.registerAdapter(DuttPoll, name = DuttPoll.name)
-

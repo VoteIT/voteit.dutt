@@ -1,16 +1,26 @@
 from unittest import TestCase
 
-import colander
-import deform
+from arche.views.base import BaseView
 from pyramid import testing
+from voteit.core.helpers import creators_info
+from voteit.core.helpers import get_userinfo_url
 from voteit.core.models.agenda_item import AgendaItem
-from voteit.core.models.poll import Poll
-from voteit.core.models.proposal import Proposal
 from voteit.core.models.interfaces import IPoll
 from voteit.core.models.interfaces import IPollPlugin
+from voteit.core.models.poll import Poll
+from voteit.core.models.proposal import Proposal
 from voteit.core.testing_helpers import active_poll_fixture
+from voteit.core.testing_helpers import attach_request_method
 from zope.interface.verify import verifyClass
 from zope.interface.verify import verifyObject
+import colander
+import deform
+
+
+
+def _attach_request_methods(request):
+    attach_request_method(request, creators_info, 'creators_info')
+    attach_request_method(request, get_userinfo_url, 'get_userinfo_url')
 
 
 class DuttPollTests(TestCase):
@@ -40,8 +50,8 @@ class DuttPollTests(TestCase):
         #Wrap in correct context
         poll = ai['poll']
         #Add proposals
-        ai['p1'] = p1 = Proposal(title = 'p1', uid = 'p1uid')
-        ai['p2'] = p2 = Proposal(title = 'p2', uid = 'p2uid')
+        ai['p1'] = p1 = Proposal(text = 'p1', uid = 'p1uid')
+        ai['p2'] = p2 = Proposal(text = 'p2', uid = 'p2uid')
         #Select proposals for this poll
         poll.proposal_uids = (p1.uid, p2.uid, )
         poll.set_field_value('poll_plugin', 'dutt_poll')
@@ -78,14 +88,14 @@ class DuttPollTests(TestCase):
     def test_render_result(self):
         self.config.include('pyramid_chameleon')
         request = testing.DummyRequest()
+        _attach_request_methods(request)
         ai = self._fixture()
         poll = ai['poll']
         self._add_votes(poll)
         poll.close_poll()
         plugin = poll.get_poll_plugin()
-        from voteit.core.views.api import APIView
-        api = APIView(poll, request)
-        self.failUnless('p1' in plugin.render_result(request, api))
+        view = BaseView(poll, request)
+        self.failUnless('p1' in plugin.render_result(view))
 
 
 class TestDuttValidator(TestCase):
