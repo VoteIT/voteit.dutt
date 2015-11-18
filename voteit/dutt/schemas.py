@@ -52,7 +52,7 @@ class DuttSchema(colander.Schema):
     widget = deform.widget.FormWidget(template = 'form_modal',
                                       readonly_template = 'readonly/form_modal')
     proposals = colander.SchemaNode(
-                    colander.Set(),
+                    colander.List(),
                     widget = deferred_proposal_widget,
                     title = deferred_proposal_title,
                     description = deferred_proposal_description,
