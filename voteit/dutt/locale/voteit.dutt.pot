@@ -1,12 +1,12 @@
 #
 # SOME DESCRIPTIVE TITLE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2015-10-16 09:26+0200\n"
+"POT-Creation-Date: 2016-05-07 12:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
-"Generated-By: Lingua 3.11\n"
+"Generated-By: Lingua 4.9\n"
 
 #: ././voteit/dutt/models.py:14
 msgid "Dutt poll"
@@ -36,8 +36,17 @@ msgstr ""
 msgid "vote_plural"
 msgstr ""
 
+#: ././voteit/dutt/schemas.py:11
+msgid "Mark the proposals you wish to vote for"
+msgstr ""
+
 #: ././voteit/dutt/schemas.py:12
 msgid "You can't change your vote now."
+msgstr ""
+
+#. Default: Check at least ${min} and at most ${max} proposal(s).
+#: ././voteit/dutt/schemas.py:20
+msgid "proposal_description_min"
 msgstr ""
 
 #. Default: Check at most ${max} proposal(s).
@@ -45,13 +54,14 @@ msgstr ""
 msgid "proposal_description_without_min"
 msgstr ""
 
-#: ././voteit/dutt/schemas.py:11
-msgid "Mark the ones you like"
+#. Default: You can only select a maximum of ${max}.
+#: ././voteit/dutt/schemas.py:75
+msgid "too_many_selected_error"
 msgstr ""
 
-#. Default: Check at least ${min} and at most ${max} proposal(s).
-#: ././voteit/dutt/schemas.py:20
-msgid "proposal_description_min"
+#. Default: You must select at least ${min}.
+#: ././voteit/dutt/schemas.py:80
+msgid "too_few_selected_error"
 msgstr ""
 
 #: ././voteit/dutt/schemas.py:87
@@ -64,14 +74,4 @@ msgstr ""
 
 #: ././voteit/dutt/schemas.py:92
 msgid "Minimum dutts"
-msgstr ""
-
-#. Default: You can only select a maximum of ${max}.
-#: ././voteit/dutt/schemas.py:75
-msgid "too_many_selected_error"
-msgstr ""
-
-#. Default: You must select at least ${min}.
-#: ././voteit/dutt/schemas.py:80
-msgid "too_few_selected_error"
 msgstr ""

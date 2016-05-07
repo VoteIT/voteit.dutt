@@ -8,7 +8,7 @@ from voteit.dutt import _
 def deferred_proposal_title(node, kw):
     context = kw['context']
     if context.get_workflow_state() == 'ongoing':
-        return _(u"Mark the ones you like")
+        return _(u"Mark the proposals you wish to vote for")
     return _(u"You can't change your vote now.")
 
 @colander.deferred
