@@ -5,17 +5,14 @@ from pyramid import testing
 from voteit.core.helpers import creators_info
 from voteit.core.helpers import get_userinfo_url
 from voteit.core.models.agenda_item import AgendaItem
-from voteit.core.models.interfaces import IPoll
 from voteit.core.models.interfaces import IPollPlugin
 from voteit.core.models.poll import Poll
 from voteit.core.models.proposal import Proposal
-from voteit.core.testing_helpers import active_poll_fixture
 from voteit.core.testing_helpers import attach_request_method
+from voteit.core.testing_helpers import bootstrap_and_fixture
 from zope.interface.verify import verifyClass
 from zope.interface.verify import verifyObject
 import colander
-import deform
-
 
 
 def _attach_request_methods(request):
@@ -40,11 +37,10 @@ class DuttPollTests(TestCase):
     def _fixture(self):
         #register as adapter
         self.config.registry.registerAdapter(self._cut, name = self._cut.name)
-        #Enable workflows
-        self.config.include('pyramid_zcml')
-        self.config.load_zcml('voteit.core:configure.zcml')
+        self.config.include('arche.testing.catalog')
+        root = bootstrap_and_fixture(self.config)
         #Add agenda item - needed for lookups
-        ai = AgendaItem()
+        root['ai'] = ai = AgendaItem()
         #Add a poll
         ai['poll'] = Poll()
         #Wrap in correct context
@@ -149,4 +145,3 @@ class IntegrationTests(TestCase):
     def test_poll_plugin(self):
         poll = Poll()
         self.failUnless(self.config.registry.queryAdapter(poll, IPollPlugin, name = u'dutt_poll'))
-
