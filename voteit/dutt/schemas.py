@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import colander
 import deform
 
@@ -11,18 +13,24 @@ def deferred_proposal_title(node, kw):
         return _(u"Mark the proposals you wish to vote for")
     return _(u"You can't change your vote now.")
 
+
 @colander.deferred
 def deferred_proposal_description(node, kw):
     context = kw['context']
-    max_choices = context.poll_settings.get('max', len(context.proposals))
+    max_choices = context.poll_settings.get('max') or len(context.proposals)
     min_choices = context.poll_settings.get('min', 0)
+    if max_choices == min_choices:
+        return _('proposal_description_exactly',
+                 default='Check exactly ${amount} proposal(s).',
+                 mapping={'amount': min_choices})
     if min_choices:
         return _("proposal_description_min",
-                 default = "Check at least ${min} and at most ${max} proposal(s).",
-                 mapping = {'min': min_choices, 'max': max_choices})
+                 default="Check at least ${min} and at most ${max} proposal(s).",
+                 mapping={'min': min_choices, 'max': max_choices})
     return _("proposal_description_without_min",
-             default = "Check at most ${max} proposal(s).",
-             mapping = {'max': max_choices})
+             default="Check at most ${max} proposal(s).",
+             mapping={'max': max_choices})
+
 
 @colander.deferred
 def deferred_proposal_widget(node, kw):
@@ -71,15 +79,19 @@ class DuttValidator(object):
         assert isinstance(max_choices, int)
         assert isinstance(min_choices, int)
         if max_choices:
+            if max_choices == min_choices and len(value) != max_choices:
+                raise colander.Invalid(node, _("not_exactly_selected_error",
+                                               default="You have checked ${amount} proposal(s).",
+                                               mapping={'amount': len(value)}))
             if len(value) > max_choices:
-                raise colander.Invalid(node, _(u"too_many_selected_error",
-                                       default = u"You can only select a maximum of ${max}.",
-                                       mapping = {'max': max_choices}))
+                raise colander.Invalid(node, _("too_many_selected_error",
+                                               default="You can only select a maximum of ${max}.",
+                                               mapping={'max': max_choices}))
         if min_choices:
             if len(value) < min_choices:
-                raise colander.Invalid(node, _(u"too_few_selected_error",
-                                       default = u"You must select at least ${min}.",
-                                       mapping = {'min': min_choices}))
+                raise colander.Invalid(node, _("too_few_selected_error",
+                                       default="You must select at least ${min}.",
+                                       mapping={'min': min_choices}))
 
 
 class DuttSettingsSchema(colander.Schema):

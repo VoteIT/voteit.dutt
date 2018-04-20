@@ -1,77 +1,108 @@
 #
 # SOME DESCRIPTIVE TITLE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2016-05-07 12:40+0200\n"
+"POT-Creation-Date: 2018-04-20 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Generated-By: Lingua 4.9\n"
+"Generated-By: Lingua 4.13\n"
 
-#: ././voteit/dutt/models.py:14
+#: ./voteit/dutt/models.py:14
 msgid "Dutt poll"
 msgstr ""
 
 #. Default: Tick proposals you like. There's a max amount, but you can add less
 #. if you want.
-#: ././voteit/dutt/models.py:15
+#: ./voteit/dutt/models.py:15
 msgid "dutt_poll_description"
 msgstr ""
 
 #. Default: Vote
-#: ././voteit/dutt/models.py:64
+#: ./voteit/dutt/models.py:64
 msgid "vote_singular"
 msgstr ""
 
 #. Default: Votes
-#: ././voteit/dutt/models.py:65
+#: ./voteit/dutt/models.py:65
 msgid "vote_plural"
 msgstr ""
 
-#: ././voteit/dutt/schemas.py:11
+#: ./voteit/dutt/schemas.py:13
 msgid "Mark the proposals you wish to vote for"
 msgstr ""
 
-#: ././voteit/dutt/schemas.py:12
+#: ./voteit/dutt/schemas.py:14
 msgid "You can't change your vote now."
 msgstr ""
 
+#. Default: Check exactly ${amount} proposal(s).
+#: ./voteit/dutt/schemas.py:23
+msgid "proposal_description_exactly"
+msgstr ""
+
 #. Default: Check at least ${min} and at most ${max} proposal(s).
-#: ././voteit/dutt/schemas.py:20
+#: ./voteit/dutt/schemas.py:27
 msgid "proposal_description_min"
 msgstr ""
 
 #. Default: Check at most ${max} proposal(s).
-#: ././voteit/dutt/schemas.py:23
+#: ./voteit/dutt/schemas.py:30
 msgid "proposal_description_without_min"
 msgstr ""
 
+#. Default: You have checked ${amount} proposal(s).
+#: ./voteit/dutt/schemas.py:83
+msgid "not_exactly_selected_error"
+msgstr ""
+
 #. Default: You can only select a maximum of ${max}.
-#: ././voteit/dutt/schemas.py:75
+#: ./voteit/dutt/schemas.py:87
 msgid "too_many_selected_error"
 msgstr ""
 
 #. Default: You must select at least ${min}.
-#: ././voteit/dutt/schemas.py:80
+#: ./voteit/dutt/schemas.py:92
 msgid "too_few_selected_error"
 msgstr ""
 
-#: ././voteit/dutt/schemas.py:87
+#: ./voteit/dutt/schemas.py:99
 msgid "Maximum dutts"
 msgstr ""
 
-#: ././voteit/dutt/schemas.py:88 ././voteit/dutt/schemas.py:93
+#: ./voteit/dutt/schemas.py:100 ./voteit/dutt/schemas.py:105
 msgid "A '0' disables this setting."
 msgstr ""
 
-#: ././voteit/dutt/schemas.py:92
+#: ./voteit/dutt/schemas.py:104
 msgid "Minimum dutts"
+msgstr ""
+
+#: ./voteit/dutt/templates/results.pt:5
+msgid "Results of ${title}"
+msgstr ""
+
+#: ./voteit/dutt/templates/results.pt:41
+msgid "Note!"
+msgstr ""
+
+#. Default: Majority polls aren't ment to handle more than 2 proposals. If the
+#. winner didn't receive at least 51% of the votes, you should consider using
+#. another poll method (like Schulze). Consult the manual for more information.
+#: ./voteit/dutt/templates/results.pt:42
+msgid "majority_poll_too_many_proposals_warning"
+msgstr ""
+
+#. Default: The percentage shows number of votes that favoured that
+#. alternative, not out of the total number of voters.
+#: ./voteit/dutt/templates/results.pt:48
+msgid "majority_results_description"
 msgstr ""
