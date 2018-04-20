@@ -28,10 +28,10 @@ def deferred_proposal_description(node, kw):
 def deferred_proposal_widget(node, kw):
     context = kw['context']
     #Choices should be something iterable with the contents [(UID for proposal, Title of proposal), <etc...>, ]
-    choices = set()
+    choices = []
     proposals = context.get_proposal_objects()
     for prop in proposals:
-        choices.add((prop.uid, prop.title))
+        choices.append((prop.uid, prop.title))
     max_choices = context.poll_settings.get('max', 0)
     if max_choices >= len(choices):
         #Disable info text if max is more or the same as the maximum available
