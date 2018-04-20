@@ -35,20 +35,23 @@ def deferred_proposal_description(node, kw):
 @colander.deferred
 def deferred_proposal_widget(node, kw):
     context = kw['context']
-    #Choices should be something iterable with the contents [(UID for proposal, Title of proposal), <etc...>, ]
-    choices = set()
+    # Choices should be something iterable with the contents [(UID for proposal, Title of proposal), <etc...>, ]
+    choices = []
     proposals = context.get_proposal_objects()
     for prop in proposals:
-        choices.add((prop.uid, prop.title))
+        choices.append((prop.uid, prop.title))
     max_choices = context.poll_settings.get('max', 0)
     if max_choices >= len(choices):
-        #Disable info text if max is more or the same as the maximum available
+        # Disable info text if max is more or the same as the maximum available
         max_choices = 0
     min_choices = context.poll_settings.get('min', 0)
-    return deform.widget.CheckboxChoiceWidget(values = choices,
-                                              css_class = 'dutt_proposals',
-                                              max = max_choices,
-                                              min = min_choices,)
+    return deform.widget.CheckboxChoiceWidget(
+        values=choices,
+        css_class='dutt_proposals',
+        max=max_choices,
+        min=min_choices,
+    )
+
 
 @colander.deferred
 def deferred_dutts_validator(node, kw):
@@ -57,14 +60,17 @@ def deferred_dutts_validator(node, kw):
 
 
 class DuttSchema(colander.Schema):
-    widget = deform.widget.FormWidget(template = 'form_modal',
-                                      readonly_template = 'readonly/form_modal')
+    widget = deform.widget.FormWidget(
+        template='form_modal',
+        readonly_template='readonly/form_modal'
+    )
     proposals = colander.SchemaNode(
-                    colander.List(),
-                    widget = deferred_proposal_widget,
-                    title = deferred_proposal_title,
-                    description = deferred_proposal_description,
-                    validator = deferred_dutts_validator)
+        colander.List(),
+        widget=deferred_proposal_widget,
+        title=deferred_proposal_title,
+        description=deferred_proposal_description,
+        validator=deferred_dutts_validator
+    )
 
 
 class DuttValidator(object):
@@ -95,13 +101,17 @@ class DuttValidator(object):
 
 
 class DuttSettingsSchema(colander.Schema):
-    max = colander.SchemaNode(colander.Int(),
-                              title = _(u"Maximum dutts"),
-                              description = _(u"A '0' disables this setting."),
-                              default = 0,
-                              missing = 0)
-    min = colander.SchemaNode(colander.Int(),
-                              title = _(u"Minimum dutts"),
-                              description = _(u"A '0' disables this setting."),
-                              default = 0,
-                              missing = 0)
+    max = colander.SchemaNode(
+        colander.Int(),
+        title=_(u"Maximum dutts"),
+        description=_(u"A '0' disables this setting."),
+        default=0,
+        missing=0
+    )
+    min = colander.SchemaNode(
+        colander.Int(),
+        title=_(u"Minimum dutts"),
+        description=_(u"A '0' disables this setting."),
+        default=0,
+        missing=0
+    )
