@@ -1,16 +1,15 @@
 language: python
 sudo: false
-bundler_args: --retry 8
 
 python:
   - 2.7
 
 before_install:
+  - pip install "setuptools<45"
   - pip install --upgrade pip
 
 install:
-  - wget https://bootstrap.pypa.io/bootstrap-buildout.py
-  - python bootstrap-buildout.py
-  - travis_retry bin/buildout
+  - pip install -r requirements.txt
 
-script: bin/py setup.py test -q
+script:
+  - python setup.py test -q
