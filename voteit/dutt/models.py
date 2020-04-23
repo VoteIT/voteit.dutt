@@ -1,19 +1,34 @@
 from decimal import Decimal
-from operator import itemgetter
 
 from pyramid.renderers import render
-from voteit.core.models.poll_plugin import PollPlugin
+from voteit.core.exceptions import BadPollMethodError
+from voteit.core.models import poll_plugin
 
 from voteit.dutt import _
 from voteit.dutt.schemas import DuttSettingsSchema
 from voteit.dutt.schemas import DuttSchema
 
 
-class DuttPoll(PollPlugin):
+class DuttPoll(poll_plugin.PollPlugin):
     name = 'dutt_poll'
-    title = _(u"Dutt poll")
-    description = _(u"dutt_poll_description",
-                    default = u"Tick proposals you like. There's a max amount, but you can add less if you want.")
+    title = _("Dutt poll")
+    description = _("dutt_poll_description",
+                    default = "Tick proposals you like. There's a max amount, but you can add less if you want. "
+                              "This method is ment for time budgets or for preliminary checks. "
+                              "It should never be used to approve or deny proposals.")
+    proposals_min = 3
+    recommended_for = _("recommended_for",
+                        default="Preliminary checks or time budgets, never for actual decisions. "
+                        "This is almost always the wrong choice for board elections for instance.")
+    criteria = (
+        poll_plugin.MajorityWinner(poll_plugin.CRITERIA_DEPENDS, comment=_("If every winner is above 50%")),
+        poll_plugin.MajorityLooser(poll_plugin.CRITERIA_DEPENDS, comment=_("If every looser is below 50%")),
+        poll_plugin.MutialMajority(False),
+        poll_plugin.CondorcetWinner(False),
+        poll_plugin.CondorcetLooser(False),
+        poll_plugin.CloneProof(False),
+        poll_plugin.Proportional(False),
+    )
 
     def get_settings_schema(self):
         return DuttSettingsSchema()
@@ -22,6 +37,21 @@ class DuttPoll(PollPlugin):
         """ Get an instance of the schema that this poll uses.
         """
         return DuttSchema()
+
+    def handle_start(self, request):
+        settings = self.context.poll_settings
+        max_choices = settings.get('max')
+        if max_choices:
+            if len(self.context.proposals) / max_choices >= 2:
+                msg = _("bad_quota_dutt",
+                        default="You're using a very unsafe poll method that can easily be "
+                                "manipulated. Even without tactical voting, "
+                                "it's very likely to give the wrong result. "
+                                "If your goal is to have a usable poll result,"
+                                "use Sorted Schulze or Scottish STV. "
+                                "If you're simply distributing points for something that isn't actually "
+                                "approved or denied (like a time budget) it's perfectly fine to use this. ")
+                raise BadPollMethodError(msg, self.context, request)
 
     def handle_close(self):
         """ Get the calculated result of this ballot.
@@ -95,6 +125,7 @@ class Counter(dict):
             results.append({'uid': uid, 'num': num})
         results = sorted(results, key=lambda x: x['num'], reverse=True)
         return tuple(results)
+
 
 def includeme(config):
     config.registry.registerAdapter(DuttPoll, name = DuttPoll.name)

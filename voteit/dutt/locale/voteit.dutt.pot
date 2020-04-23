@@ -1,12 +1,12 @@
 #
 # SOME DESCRIPTIVE TITLE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2018-04-20 16:35+0200\n"
+"POT-Creation-Date: 2020-04-23 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,25 +14,50 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Lingua 4.13\n"
+"Generated-By: Lingua 4.14\n"
 
 #: ./voteit/dutt/models.py:14
 msgid "Dutt poll"
 msgstr ""
 
 #. Default: Tick proposals you like. There's a max amount, but you can add less
-#. if you want.
+#. if you want. This method is ment for time budgets or for preliminary checks.
+#. It should never be used to approve or deny proposals.
 #: ./voteit/dutt/models.py:15
 msgid "dutt_poll_description"
 msgstr ""
 
+#. Default: Preliminary checks or time budgets, never for actual decisions.
+#. This is almost always the wrong choice for board elections for instance.
+#: ./voteit/dutt/models.py:20
+msgid "recommended_for"
+msgstr ""
+
+#: ./voteit/dutt/models.py:24
+msgid "If every winner is above 50%"
+msgstr ""
+
+#: ./voteit/dutt/models.py:25
+msgid "If every looser is below 50%"
+msgstr ""
+
+#. Default: You're using a very unsafe poll method that can easily be
+#. manipulated. Even without tactical voting, it's very likely to give the
+#. wrong result. If your goal is to have a usable poll result,use Sorted
+#. Schulze or Scottish STV. If you're simply distributing points for something
+#. that isn't actually approved or denied (like a time budget) it's perfectly
+#. fine to use this.
+#: ./voteit/dutt/models.py:46
+msgid "bad_quota_dutt"
+msgstr ""
+
 #. Default: Vote
-#: ./voteit/dutt/models.py:64
+#: ./voteit/dutt/models.py:94
 msgid "vote_singular"
 msgstr ""
 
 #. Default: Votes
-#: ./voteit/dutt/models.py:65
+#: ./voteit/dutt/models.py:95
 msgid "vote_plural"
 msgstr ""
 
@@ -60,29 +85,29 @@ msgid "proposal_description_without_min"
 msgstr ""
 
 #. Default: You have checked ${amount} proposal(s).
-#: ./voteit/dutt/schemas.py:83
+#: ./voteit/dutt/schemas.py:89
 msgid "not_exactly_selected_error"
 msgstr ""
 
 #. Default: You can only select a maximum of ${max}.
-#: ./voteit/dutt/schemas.py:87
+#: ./voteit/dutt/schemas.py:93
 msgid "too_many_selected_error"
 msgstr ""
 
 #. Default: You must select at least ${min}.
-#: ./voteit/dutt/schemas.py:92
+#: ./voteit/dutt/schemas.py:98
 msgid "too_few_selected_error"
 msgstr ""
 
-#: ./voteit/dutt/schemas.py:99
+#: ./voteit/dutt/schemas.py:106
 msgid "Maximum dutts"
 msgstr ""
 
-#: ./voteit/dutt/schemas.py:100 ./voteit/dutt/schemas.py:105
+#: ./voteit/dutt/schemas.py:107 ./voteit/dutt/schemas.py:114
 msgid "A '0' disables this setting."
 msgstr ""
 
-#: ./voteit/dutt/schemas.py:104
+#: ./voteit/dutt/schemas.py:113
 msgid "Minimum dutts"
 msgstr ""
 
@@ -94,9 +119,10 @@ msgstr ""
 msgid "Note!"
 msgstr ""
 
-#. Default: Majority polls aren't ment to handle more than 2 proposals. If the
-#. winner didn't receive at least 51% of the votes, you should consider using
-#. another poll method (like Schulze). Consult the manual for more information.
+#. Default: Majority polls aren't ment to handle more than 2 proposals. If all
+#. winners didn't receive at least 51%, and all loosing proposals less than 50%
+#. of the votes, you should consider using another poll method (like Sorted
+#. Schulze or Scottish STV).
 #: ./voteit/dutt/templates/results.pt:42
 msgid "majority_poll_too_many_proposals_warning"
 msgstr ""

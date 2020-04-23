@@ -39,10 +39,10 @@
   <div tal:condition="len(results) > 2" class="alert alert-warning" role="alert">
     <span class="glyphicon glyphicon-warning-sign"></span>
     <strong i18n:translate="">Note!</strong>
-    <span i18n:translate="majority_poll_too_many_proposals_warning">Majority polls aren't ment to handle more than 2 proposals.
-      If the winner didn't receive at least 51%
-      of the votes, you should consider using another poll method (like Schulze).
-      Consult the manual for more information.
+    <span i18n:translate="majority_poll_too_many_proposals_warning">
+      Majority polls aren't ment to handle more than 2 proposals.
+      If all winners didn't receive at least 51%, and all loosing proposals less than 50%
+      of the votes, you should consider using another poll method (like Sorted Schulze or Scottish STV).
     </span>
   </div>
   <p i18n:translate="majority_results_description">The percentage shows number of votes that favoured that alternative, not out of the total number of voters.</p>

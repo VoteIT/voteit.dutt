@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: voteit.dutt 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-04-20 16:35+0200\n"
-"PO-Revision-Date: 2018-04-23 09:02+0200\n"
+"POT-Creation-Date: 2020-04-23 11:11+0200\n"
+"PO-Revision-Date: 2020-04-23 11:13+0200\n"
 "Last-Translator: Robin Harms Oredsson <robin@betahaus.net>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
@@ -18,26 +18,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 1.3\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 2.3\n"
 
 #: voteit/dutt/models.py:14
 msgid "Dutt poll"
 msgstr "Dutt-omröstning"
 
 #. Default: Tick proposals you like. There's a max amount, but you can add less
-#. if you want.
+#. if you want. This method is ment for time budgets or for preliminary checks.
+#. It should never be used to approve or deny proposals.
 #: voteit/dutt/models.py:15
 msgid "dutt_poll_description"
 msgstr ""
 "Markera förslag du gillar. Det finns ett maxantal, men du kan välja färre."
 
+#. Default: Preliminary checks or time budgets, never for actual decisions.
+#. This is almost always the wrong choice for board elections for instance.
+#: voteit/dutt/models.py:20
+msgid "recommended_for"
+msgstr ""
+
+#: voteit/dutt/models.py:24
+msgid "If every winner is above 50%"
+msgstr ""
+
+#: voteit/dutt/models.py:25
+msgid "If every looser is below 50%"
+msgstr ""
+
+#. Default: You're using a very unsafe poll method that can easily be
+#. manipulated. Even without tactical voting, it's very likely to give the
+#. wrong result. If your goal is to have a usable poll result,use Sorted
+#. Schulze or Scottish STV. If you're simply distributing points for something
+#. that isn't actually approved or denied (like a time budget) it's perfectly
+#. fine to use this.
+#: voteit/dutt/models.py:46
+msgid "bad_quota_dutt"
+msgstr ""
+
 #. Default: Vote
-#: voteit/dutt/models.py:64
+#: voteit/dutt/models.py:94
 msgid "vote_singular"
 msgstr "Röst"
 
 #. Default: Votes
-#: voteit/dutt/models.py:65
+#: voteit/dutt/models.py:95
 msgid "vote_plural"
 msgstr "Röster"
 
@@ -65,29 +90,29 @@ msgid "proposal_description_without_min"
 msgstr "Välj som mest ${max} förslag."
 
 #. Default: You have checked ${amount} proposal(s).
-#: voteit/dutt/schemas.py:83
+#: voteit/dutt/schemas.py:89
 msgid "not_exactly_selected_error"
 msgstr "Du har valt ${amount} förslag."
 
 #. Default: You can only select a maximum of ${max}.
-#: voteit/dutt/schemas.py:87
+#: voteit/dutt/schemas.py:93
 msgid "too_many_selected_error"
 msgstr "Du får inte välja fler än ${max}."
 
 #. Default: You must select at least ${min}.
-#: voteit/dutt/schemas.py:92
+#: voteit/dutt/schemas.py:98
 msgid "too_few_selected_error"
 msgstr "Du måste välja minst ${min}."
 
-#: voteit/dutt/schemas.py:99
+#: voteit/dutt/schemas.py:106
 msgid "Maximum dutts"
 msgstr "Maximalt antal duttar"
 
-#: voteit/dutt/schemas.py:100 voteit/dutt/schemas.py:105
+#: voteit/dutt/schemas.py:107 voteit/dutt/schemas.py:114
 msgid "A '0' disables this setting."
 msgstr "'0' stänger av denna inställning."
 
-#: voteit/dutt/schemas.py:104
+#: voteit/dutt/schemas.py:113
 msgid "Minimum dutts"
 msgstr "Minimalt antal duttar"
 
@@ -99,16 +124,17 @@ msgstr "Resultat av ${title}"
 msgid "Note!"
 msgstr "Notera!"
 
-#. Default: Majority polls aren't ment to handle more than 2 proposals. If the
-#. winner didn't receive at least 51% of the votes, you should consider using
-#. another poll method (like Schulze). Consult the manual for more information.
+#. Default: Majority polls aren't ment to handle more than 2 proposals. If all
+#. winners didn't receive at least 51%, and all loosing proposals less than 50%
+#. of the votes, you should consider using another poll method (like Sorted
+#. Schulze or Scottish STV).
 #: voteit/dutt/templates/results.pt:42
 msgid "majority_poll_too_many_proposals_warning"
 msgstr ""
 "Majoritetsomröstningar är inte tänkta att hantera fler än 2 förslag. Om "
-"vinnaren inte fick minst 51% av rösterna bör ni använda en annan "
-"omröstningsmetod (som Schulze STV eller Skotsk STV). Se manualen för mer "
-"information."
+"alla vinnande fick minst 51% av rösterna och alla förlorande fick under "
+"50% kan resultatet användas, annars bör ni använda en annan "
+"omröstningsmetod (som sorterad Schulze eller Skotsk STV)."
 
 #. Default: The percentage shows number of votes that favoured that
 #. alternative, not out of the total number of voters.
