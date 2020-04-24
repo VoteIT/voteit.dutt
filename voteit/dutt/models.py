@@ -31,7 +31,7 @@ class DuttPoll(poll_plugin.PollPlugin):
         poll_plugin.MajorityLooser(
             poll_plugin.CRITERIA_DEPENDS, comment=_("If every looser is below 50%")
         ),
-        poll_plugin.MutialMajority(False),
+        poll_plugin.MutualMajority(False),
         poll_plugin.CondorcetWinner(False),
         poll_plugin.CondorcetLooser(False),
         poll_plugin.CloneProof(False),
