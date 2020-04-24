@@ -66,7 +66,7 @@ class DuttPoll(poll_plugin.PollPlugin):
                     recommendation=_(
                         "recommendation_bad_poll",
                         default="If your goal is to have a usable poll result, "
-                        "use Sorted Schulze or Scottish STV. "
+                        "use Repeated Schulze or Scottish STV. "
                     ),
                 )
 

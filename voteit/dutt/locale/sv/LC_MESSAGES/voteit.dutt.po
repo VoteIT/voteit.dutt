@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: voteit.dutt 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-23 11:11+0200\n"
-"PO-Revision-Date: 2020-04-23 11:13+0200\n"
+"POT-Creation-Date: 2020-04-24 11:22+0200\n"
+"PO-Revision-Date: 2020-04-24 11:23+0200\n"
 "Last-Translator: Robin Harms Oredsson <robin@betahaus.net>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
@@ -34,35 +34,48 @@ msgstr ""
 
 #. Default: Preliminary checks or time budgets, never for actual decisions.
 #. This is almost always the wrong choice for board elections for instance.
-#: voteit/dutt/models.py:20
+#: voteit/dutt/models.py:22
 msgid "recommended_for"
 msgstr ""
+"Preliminära gallringar eller tidsbudgetar, aldrig för faktiska beslut. Detta "
+"är nästan alltid fel metod för styrelseval t.ex."
 
-#: voteit/dutt/models.py:24
+#: voteit/dutt/models.py:29
 msgid "If every winner is above 50%"
-msgstr ""
+msgstr "Om varje bifallet förslag är över 50%"
 
-#: voteit/dutt/models.py:25
+#: voteit/dutt/models.py:32
 msgid "If every looser is below 50%"
-msgstr ""
+msgstr "Om varje avslaget förslag är under 50%"
 
 #. Default: You're using a very unsafe poll method that can easily be
 #. manipulated. Even without tactical voting, it's very likely to give the
-#. wrong result. If your goal is to have a usable poll result,use Sorted
-#. Schulze or Scottish STV. If you're simply distributing points for something
-#. that isn't actually approved or denied (like a time budget) it's perfectly
-#. fine to use this.
-#: voteit/dutt/models.py:46
+#. wrong result. If you're simply distributing points for something that isn't
+#. actually approved or denied (like a time budget) it's perfectly fine to use
+#. this.
+#: voteit/dutt/models.py:54
 msgid "bad_quota_dutt"
 msgstr ""
+"Du försöker använda en osäker omröstningsmetod som enkelt kan manipuleras. "
+"Även utan taktiskt röstande så är det väldigt sannolikt att metoden ger fel "
+"resultat. Om du bara delar ut poäng på ett sätt som inte leder till ett "
+"beslut (exempelvis en tidsbudget) så är det säkert att använda metoden."
+
+#. Default: If your goal is to have a usable poll result, use Repeated Schulze
+#. or Scottish STV.
+#: voteit/dutt/models.py:66
+msgid "recommendation_bad_poll"
+msgstr ""
+"Om målet är att ha ett användbart omröstningsresultat, använd repeterad "
+"Schulze eller skotsk STV."
 
 #. Default: Vote
-#: voteit/dutt/models.py:94
+#: voteit/dutt/models.py:115
 msgid "vote_singular"
 msgstr "Röst"
 
 #. Default: Votes
-#: voteit/dutt/models.py:95
+#: voteit/dutt/models.py:116
 msgid "vote_plural"
 msgstr "Röster"
 
@@ -126,15 +139,15 @@ msgstr "Notera!"
 
 #. Default: Majority polls aren't ment to handle more than 2 proposals. If all
 #. winners didn't receive at least 51%, and all loosing proposals less than 50%
-#. of the votes, you should consider using another poll method (like Sorted
+#. of the votes, you should consider using another poll method (like Repeated
 #. Schulze or Scottish STV).
 #: voteit/dutt/templates/results.pt:42
 msgid "majority_poll_too_many_proposals_warning"
 msgstr ""
-"Majoritetsomröstningar är inte tänkta att hantera fler än 2 förslag. Om "
-"alla vinnande fick minst 51% av rösterna och alla förlorande fick under "
-"50% kan resultatet användas, annars bör ni använda en annan "
-"omröstningsmetod (som sorterad Schulze eller Skotsk STV)."
+"Majoritetsomröstningar är inte tänkta att hantera fler än 2 förslag. Om alla "
+"vinnande fick minst 51% av rösterna och alla förlorande fick under 50% kan "
+"resultatet användas, annars bör ni använda en annan omröstningsmetod (som "
+"repeterad Schulze eller Skotsk STV)."
 
 #. Default: The percentage shows number of votes that favoured that
 #. alternative, not out of the total number of voters.

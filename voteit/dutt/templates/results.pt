@@ -42,7 +42,7 @@
     <span i18n:translate="majority_poll_too_many_proposals_warning">
       Majority polls aren't ment to handle more than 2 proposals.
       If all winners didn't receive at least 51%, and all loosing proposals less than 50%
-      of the votes, you should consider using another poll method (like Sorted Schulze or Scottish STV).
+      of the votes, you should consider using another poll method (like Repeated Schulze or Scottish STV).
     </span>
   </div>
   <p i18n:translate="majority_results_description">The percentage shows number of votes that favoured that alternative, not out of the total number of voters.</p>
