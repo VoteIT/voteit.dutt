@@ -136,12 +136,11 @@ class TestDuttValidator(TestCase):
 class IntegrationTests(TestCase):
     def setUp(self):
         self.config = testing.setUp()
-        self.config.include('voteit.core')
-        self.config.include('voteit.dutt')
+        self.config.include('voteit.dutt.models')
 
     def tearDown(self):
         testing.tearDown()
 
     def test_poll_plugin(self):
         poll = Poll()
-        self.failUnless(self.config.registry.queryAdapter(poll, IPollPlugin, name = u'dutt_poll'))
+        self.failUnless(self.config.registry.queryAdapter(poll, IPollPlugin, name='dutt_poll'))
